@@ -1,0 +1,7 @@
+Compilando com o GLUT
+
+O NOSSO ARQUIVO PRINCIPAL É O "main.cpp"
+
+código em C++
+	g++ -o main main.cpp -lglut -lGL -lGLU
+
