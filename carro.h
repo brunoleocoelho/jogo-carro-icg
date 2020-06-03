@@ -25,10 +25,27 @@ class Carro {
             posY = y;
             comprimento = large;
             cor = color;
-            Hatch();
+            // Hatch();
         }
 
     //metodos
+        /**
+         * Aplica a cor do carro, conforme instanciado
+         */
+        void ApplicaCorCarro() {
+            string cor = getCor();
+
+            if(cor == "amarelo") {
+                glColor3f(1, 1, 0);
+            } 
+            else if (cor == "azul") {
+                glColor3f(0, 0, 1);
+            } 
+            else {
+                glColor3f(1, 0, 0); //vermelho
+            }
+        }
+
         // void Roda(float posX, float posY, float raio)
         void Roda(float position, float raio)
         {    
@@ -55,30 +72,27 @@ class Carro {
             glEnd();    
         }
 
-        /** Desenho um carro Hatch
-        *   cores disponíveis: azul, amarelo, vermelho
-        */
+        /** 
+         * Desenho um carro Hatch 
+         * cores disponíveis: azul, amarelo, vermelho
+         */
         void Hatch()
         {
             float altura = comprimento * 0.3;
-            if(getCor() == "amarelo"){
-                glColor3f(1, 1, 0);
-            } else if (getCor() == "azul"){
-                glColor3f(0, 0, 1);
-            } else {
-                glColor3f(1, 0, 0); //vermelho
-            }
+
+            ApplicaCorCarro();
+
             //chassi
             glBegin(GL_QUADS);
                 glVertex2f(posX, posY);
                 glVertex2f(posX, posY+altura);
-                glVertex2f(posX+comprimento, posY+altura);
-                glVertex2f(posX+comprimento, posY);                
+                glVertex2f(posX+(comprimento*0.95), posY+altura);
+                glVertex2f(posX+(comprimento), posY);                
             glEnd();
             //cabine
             glBegin(GL_QUADS);
                 glVertex2f(posX, posY+altura);
-                glVertex2f(posX, posY+(altura*1.6));
+                glVertex2f(posX+(comprimento*0.1), posY+(altura*1.6));
                 glVertex2f(posX+(comprimento*0.6), posY+(altura*1.6));
                 glVertex2f(posX+(comprimento*0.7), posY+altura);                
             glEnd();
@@ -86,20 +100,36 @@ class Carro {
             glColor3f(0.7, 0.8, 0.8);//cinza            
             glBegin(GL_QUADS);
                 glVertex2f(posX+0.4, posY+altura);
-                glVertex2f(posX+0.4, posY+(altura*1.45));
+                glVertex2f(posX+0.8, posY+(altura*1.45));
                 glVertex2f(posX+(comprimento*0.55), posY+(altura*1.45));
                 glVertex2f(posX+(comprimento*0.65), posY+altura);                
             glEnd();
-            Roda(posX + (comprimento * 0.2), altura * 0.5); //traseira
-            Roda(posX + (comprimento * 0.8), altura * 0.5);//dianteira
+            Roda(posX + (comprimento * 0.15), altura * 0.5); //traseira
+            Roda(posX + (comprimento * 0.75), altura * 0.5);//dianteira
             
         }
 
-        // /** Desenho um carro Sedan
-        // *   cores disponíveis: azul, amarelo, vermelho
-        // */
-        // void Sedan(){
-        // }
+        /**
+         * Desenho um carro Sedan cores 
+         * disponíveis: azul, amarelo, vermelho
+         */
+        void Sedan(){
+            // Molda o Sedan a partir do hatch
+            Hatch();
+            
+            // mala
+            float altura = comprimento * 0.3;
+            float malaTop = comprimento * 0.15;
+            float malaDown = comprimento * 0.18;
+
+            ApplicaCorCarro();
+            glBegin(GL_QUADS);
+                glVertex2f(posX, posY);
+                glVertex2f(posX, posY+altura);
+                glVertex2f(posX-malaTop, posY+altura);
+                glVertex2f(posX-malaDown, posY);                
+            glEnd();
+        }
 
         //Getters
         float getPosX(){

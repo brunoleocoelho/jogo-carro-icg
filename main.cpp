@@ -256,7 +256,7 @@ void display(){
 
     car1.Hatch();
     car2.Hatch();
-    car3.Hatch();
+    car3.Sedan();
 
     cout << car1.getCor() << ": tam=" << car1.getComprimento() << 
         ", x=" << car1.getPosX() << ", y=" << car1.getPosY() << endl; //linha teste
